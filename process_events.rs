@@ -68,26 +68,3 @@ fn find_process_events(name_or_id: &str) -> Option<Process> {
         None
     }
 }
-
-fn main() {
-    let name_or_id = "process1";
-    let process = find_process_events(name_or_id);
-    if let Some(process) = process {
-        println!("Recent file system events for process {} ({}):", process.name, process.id);
-        for (timestamp, event) in process.recent_file_system_events.iter() {
-            println!("{} - {}", timestamp.as_secs(), event);
-        }
-
-        println!("Recent child process events for process {} ({}):", process.name, process.id);
-        for (timestamp, id) in process.recent_child_process_events.iter() {
-            println!("{} - {}", timestamp.as_secs(), id);
-        }
-
-        println!("Recent thread events for process {} ({}):", process.name, process.id);
-        for (timestamp, id) in process.recent_thread_events.iter() {
-            println!("{} - {}", timestamp.as_secs(), id);
-        }
-    } else {
-        println!("Process {} not found", name_or_id);
-    }
-}
